@@ -1,0 +1,26 @@
+# Ignore Next.js build output
+.next/
+out/
+
+# Ignore dependency directories
+node_modules/
+
+# Ignore lockfiles
+pnpm-lock.yaml
+package-lock.json
+
+# Ignore large or design asset files
+*.zip
+*.tar.gz
+*.rar
+*.psd
+*.ai
+*.png
+*.jpg
+*.jpeg
+*.svg
+*.gif
+
+# Misc
+.DS_Store
+.git/

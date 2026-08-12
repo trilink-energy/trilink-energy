@@ -1,0 +1,11 @@
+node_modules
+.next
+.turbo
+pnpm-lock.yaml
+dist
+.env.local
+node_modules
+.vercel
+Platformsify_Production_Kit.zip
+.open-next/
+wrangler.jsonc.production-backup
