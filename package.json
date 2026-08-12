@@ -15,7 +15,9 @@
     "next": "^16.3.0",
     "next-seo": "^6.8.0",
     "react": "^19.2.8",
-    "react-dom": "^19.2.8"
+    "react-dom": "^19.2.8",
+    "resend": "^6.19.0",
+    "stripe": "^22.5.0"
   },
   "devDependencies": {
     "wrangler": "^4.121.0"
