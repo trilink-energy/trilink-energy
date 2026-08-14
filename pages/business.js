@@ -34,7 +34,7 @@ export default function Business() {
         />
         <link
           rel="canonical"
-          href="https://trilink.platformsify.workers.dev/business"
+          href="https://trilink-energy.platformsify.workers.dev/business"
         />
         <meta
           property="og:title"
@@ -46,7 +46,7 @@ export default function Business() {
         />
         <meta
           property="og:url"
-          content="https://trilink.platformsify.workers.dev/business"
+          content="https://trilink-energy.platformsify.workers.dev/business"
         />
         <meta property="og:type" content="website" />
       </Head>

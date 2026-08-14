@@ -12,7 +12,7 @@ export default function Partners() {
         />
         <link
           rel="canonical"
-          href="https://trilink.platformsify.workers.dev/partners"
+          href="https://trilink-energy.platformsify.workers.dev/partners"
         />
         <meta property="og:title" content="TriLink Partners" />
         <meta
@@ -21,7 +21,7 @@ export default function Partners() {
         />
         <meta
           property="og:url"
-          content="https://trilink.platformsify.workers.dev/partners"
+          content="https://trilink-energy.platformsify.workers.dev/partners"
         />
         <meta property="og:type" content="website" />
       </Head>

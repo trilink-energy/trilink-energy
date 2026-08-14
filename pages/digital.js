@@ -12,7 +12,7 @@ export default function Digital() {
         />
         <link
           rel="canonical"
-          href="https://trilink.platformsify.workers.dev/digital"
+          href="https://trilink-energy.platformsify.workers.dev/digital"
         />
       </Head>
 

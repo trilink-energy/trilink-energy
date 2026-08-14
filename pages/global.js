@@ -12,7 +12,7 @@ export default function Global() {
         />
         <link
           rel="canonical"
-          href="https://trilink.platformsify.workers.dev/global"
+          href="https://trilink-energy.platformsify.workers.dev/global"
         />
       </Head>
 
