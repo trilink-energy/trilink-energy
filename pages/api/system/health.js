@@ -43,7 +43,7 @@ export default function handler(req, res) {
     modules: SYSTEM_MODULES.length,
     connected_modules: modulesConnected.length,
     api_routes: routes.length,
-    status: allModulesConnected
+    status: missingModules.length === 0
       ? 'healthy'
       : 'partial',
     generated_at: new Date().toISOString()
