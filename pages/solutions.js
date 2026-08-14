@@ -45,7 +45,7 @@ export default function Solutions() {
         />
         <link
           rel="canonical"
-          href="https://trilink.platformsify.workers.dev/solutions"
+          href="https://trilink-energy.platformsify.workers.dev/solutions"
         />
         <meta property="og:title" content="TriLink Solutions" />
         <meta
@@ -54,7 +54,7 @@ export default function Solutions() {
         />
         <meta
           property="og:url"
-          content="https://trilink.platformsify.workers.dev/solutions"
+          content="https://trilink-energy.platformsify.workers.dev/solutions"
         />
         <meta property="og:type" content="website" />
       </Head>

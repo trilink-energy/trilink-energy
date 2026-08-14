@@ -1,5 +1,8 @@
 User-agent: *
 Allow: /
-Disallow: /api/
 
-Sitemap: https://trilink.platformsify.workers.dev/sitemap.xml
+Disallow: /api/
+Disallow: /ceo/
+Disallow: /auth/
+
+Sitemap: https://trilink-energy.platformsify.workers.dev/sitemap.xml
