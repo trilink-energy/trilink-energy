@@ -1,0 +1,103 @@
+name: TriLink Production
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: trilink-production
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build TriLink
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.19.0
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify OpenNext
+        run: npx opennextjs-cloudflare --version
+
+      - name: Verify Wrangler
+        run: npx wrangler --version
+
+      - name: Build
+        run: npm run build
+
+      - name: Verify OpenNext output
+        run: |
+          test -f .open-next/worker.js
+          test -d .open-next/assets
+          echo "OpenNext production output verified."
+
+  deploy:
+    name: Deploy TriLink Production
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    environment:
+      name: production
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.19.0
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy to Cloudflare
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy
+
+      - name: Production health check
+        run: |
+          set -e
+
+          URL="https://trilink-energy.platformsify.workers.dev"
+
+          echo "Checking system health..."
+          curl --fail --silent --show-error \
+            --retry 5 \
+            --retry-delay 5 \
+            "$URL/api/system/health"
+
+          echo
+          echo "Checking CEO runtime..."
+          curl --fail --silent --show-error \
+            --retry 5 \
+            --retry-delay 5 \
+            "$URL/api/health/ceo-runtime"
+
+          echo
+          echo "Production health checks passed."
