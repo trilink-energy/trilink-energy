@@ -29,16 +29,23 @@ export default function handler(req, res) {
       )
     )
 
+  const missingModules =
+    SYSTEM_MODULES.filter(module =>
+      !Object.prototype.hasOwnProperty.call(
+        connectivity,
+        module
+      )
+    )
+
   return res.status(200).json({
     ok: true,
     system: 'TriLink',
     modules: SYSTEM_MODULES.length,
     connected_modules: modulesConnected.length,
     api_routes: routes.length,
-    status:
-      modulesConnected.length === SYSTEM_MODULES.length
-        ? 'healthy'
-        : 'partial',
+    status: allModulesConnected
+      ? 'healthy'
+      : 'partial',
     generated_at: new Date().toISOString()
   })
 }
