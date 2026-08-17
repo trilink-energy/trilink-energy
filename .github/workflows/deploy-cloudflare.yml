@@ -25,7 +25,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build
+      - name: Build Next.js
         run: npm run build
 
       - name: Backup file safety check
@@ -36,6 +36,28 @@ jobs:
             exit 1
           fi
           echo "No tracked backup-like files found."
+
+      - name: Build OpenNext for Cloudflare
+        run: npx --yes opennextjs-cloudflare build
+
+      - name: Verify OpenNext build artifacts
+        run: |
+          echo "Verifying .open-next directory structure..."
+          if [ ! -d ".open-next" ]; then
+            echo "ERROR: .open-next directory not found"
+            exit 1
+          fi
+          echo ".open-next directory found."
+          
+          if [ ! -f ".open-next/worker.js" ]; then
+            echo "ERROR: .open-next/worker.js not found"
+            echo "Contents of .open-next:"
+            ls -la .open-next/
+            exit 1
+          fi
+          echo ".open-next/worker.js found."
+          echo "OpenNext build artifacts verified successfully."
+          ls -la .open-next/
 
       - name: Deploy to Cloudflare
         env:
