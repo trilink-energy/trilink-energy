@@ -1,0 +1,44 @@
+name: Deploy to Cloudflare (OpenNext)
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Build and deploy (OpenNext -> Cloudflare)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Backup file safety check
+        run: |
+          if git ls-files | grep -E '(\.backup-|\.bak$|\.old$|\.orig$|\.swp$|\.trilink-stage20-backup-)' >/dev/null; then
+            echo "ERROR: backup-like files found in tracked repository files."
+            git ls-files | grep -E '(\.backup-|\.bak$|\.old$|\.orig$|\.swp$|\.trilink-stage20-backup-)'
+            exit 1
+          fi
+          echo "No tracked backup-like files found."
+
+      - name: Deploy to Cloudflare
+        env:
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+        run: npx --yes opennextjs-cloudflare deploy
